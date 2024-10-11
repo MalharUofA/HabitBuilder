@@ -1,0 +1,52 @@
+{% extends "habit_builder/layout.html" %}
+{% load static %}
+
+{% block source %}
+
+<script src="{% static 'habit_builder/index.js' %}"></script>
+<link rel="stylesheet" href="{% static 'habit_builder/index.css' %}">
+{% endblock %}
+
+{% block body %}
+<h1 style="margin-bottom: 30px;">{{ greetings }}{{ user.username }}</h1>
+<div class="container">
+    <!-- Container for the page items -->
+    <div id="page-container">
+        <!-- Render the user-created pages dynamically -->
+        {% for page in user_pages %}
+        <a href="{% url 'add_page' page.title page.id %}">
+            <div class="page-item">
+                {% if page.cover %}
+                    <img src="{{ page.cover.url }}" alt="{{ page.title }}" class="page-cover">
+                {% else %}
+                    <!-- Optional: Placeholder or nothing -->
+                    <div class="page-cover-placeholder"></div>
+                {% endif %}
+                <div class="page-details">
+                    <h4 class="page-title">{{ page.title }}</h4>
+                    <p class="page-date">{{ page.publish_date }}</p>
+                </div>
+            </div>
+        </a>
+
+        {% endfor %}
+
+        <!-- The add habit button -->
+        <div class="add-habit-container">
+            <img id="add_habit" src="{% static 'habit_builder/add-button.png' %}" alt="Add page" class="add-button">
+        </div>
+    </div>
+    <!-- Modal Structure -->
+    <div id="habitModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>What's the new focus?</h2>
+            <form method="post" enctype="multipart/form-data" id="addPageForm" action="{% url 'index' %}">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary mt-2">Save Habit</button>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

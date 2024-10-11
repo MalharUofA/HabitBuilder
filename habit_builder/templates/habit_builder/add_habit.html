@@ -1,0 +1,105 @@
+{% extends "habit_builder/layout.html" %}
+{% load static %}
+
+{% block source %} 
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelector('#add_habit').onclick = function() {
+            document.querySelector('#habitModal').style.display = 'block';
+        }
+
+        document.querySelector('.close').onclick = function() {
+            document.querySelector('#habitModal').style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            if (event.target == document.querySelector('#habitModal')) {
+                document.querySelector('#habitModal').style.display = 'none';
+            }
+        }
+    });
+</script>
+{% endblock %}
+
+{% block body %}
+<h1>{{greetings}} {{user.username}}</h1>
+<img id="add_habit" src="{% static 'habit_builder/add-button.png' %}" alt="Add page" style="height: 60px; margin-top: 50px; cursor: pointer;">
+
+<!-- Modal Structure -->
+<div id="habitModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Add a New Habit</h2>
+        <form method="post" id="addPageForm">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary mt-2">Save Habit</button>
+        </form>
+    </div>
+</div>
+
+<style>
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0,0,0,0.4);
+    }
+
+    .modal-content {
+        background-color: rgba(0,0,0,0.8);
+        color: white; /* White text color for better readability */
+        margin: 5% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 50%;
+        max-width: 600px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        opacity: 0.9; /* Semi-transparent background */
+    }
+
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: white;
+        text-decoration: none;
+        cursor: pointer;
+    }
+/* Form styling */
+form {
+    color: white; /* Ensure text inside the form is white */
+}
+
+input, select, textarea, button {
+    background-color: rgba(255,255,255,0.2); /* Light transparent background for form elements */
+    color: white; /* White text color */
+    border: 1px solid #444; /* Darker border color for contrast */
+}
+
+input::placeholder, textarea::placeholder {
+    color: rgba(255,255,255,0.8); /* Light color for placeholders */
+}
+
+button {
+    background-color: #007bff; /* Bootstrap primary color for button */
+    border: none; /* Remove default border */
+    padding: 10px 20px; /* Adjust padding */
+}
+
+button:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+}
+</style>
+{% endblock %}

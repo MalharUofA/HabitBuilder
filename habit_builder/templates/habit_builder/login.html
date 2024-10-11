@@ -1,0 +1,28 @@
+{% extends "habit_builder/home_page_layout.html" %}
+
+{% block title %}Login - Habit Builder{% endblock %}
+
+{% block body %}
+    <div class="login-container">
+        <h2 class="text-center">Login</h2>
+
+        {% if message %}
+            <div class="alert alert-warning text-center">{{ message }}</div>
+        {% endif %}
+
+        <form action="{% url 'login' %}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <input autofocus class="form-control" type="text" name="username" placeholder="Username" required>
+            </div>
+            <div class="form-group">
+                <input class="form-control" type="password" name="password" placeholder="Password" required>
+            </div>
+            <input class="btn btn-primary" type="submit" value="Login">
+        </form>
+
+        <div class="register-link">
+            Don't have an account? <a href="{% url 'register' %}">Register here.</a>
+        </div>
+    </div>
+{% endblock %}

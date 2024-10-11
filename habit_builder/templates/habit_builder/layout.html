@@ -1,0 +1,108 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Habit Builder</title>
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha384-vp8k5PaNd5zhyRmKntC1Qmpbx6xA9QnrZzARa9a8yRC5MO8Wv+uStPB1UqLMwEwY" crossorigin="anonymous">
+    
+    {% block source %} 
+    {% endblock %}
+    
+    <style>
+        /* Custom styles for dark theme and sidebar */
+        body {
+            background-color: #121212;
+            color: #ffffff;
+        }
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #1c1c1c;
+            padding-top: 20px;
+        }
+        .sidebar .nav-link {
+            color: #bdbdbd;
+        }
+        .sidebar .nav-link:hover, .sidebar .nav-item.active .nav-link {
+            background-color: #333333;
+            color: #ffffff;
+        }
+        .content {
+            margin-left: 250px; /* Adjust margin to match the width of the sidebar */
+            padding: 20px;
+        }
+        .navbar-custom {
+            background-color: #1c1c1c;
+            border-bottom: 1px solid #333333;
+        }
+        .navbar-custom .navbar-brand {
+            color: #ffffff;
+        }
+        .navbar-custom .navbar-nav .nav-link {
+            color: #bdbdbd;
+        }
+        .navbar-custom .navbar-nav .nav-link:hover {
+            color: #ffffff;
+        }
+        .text-white {
+            color: #ffffff !important;
+        }
+    </style>
+</head> 
+<body>
+    <div class="d-flex">
+        <!-- Sidebar -->
+        <nav class="sidebar d-flex flex-column p-3">
+            <!-- Placeholder for the username -->
+            <div class="mb-4 text-center">
+                <!-- <img src="{% static 'habit_builder/logo.png' %}" alt="Website Logo" style="position: absolute; size: 10cm;"> Make sure the logo is placed in the static/images directory -->
+                <h5 class="text-white">Welcome, {{ user.username }}</h5>
+            </div>
+            
+
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link active" href="{% url 'index' %}">
+                        <i class="fas fa-home"></i> Home
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
+                </li>
+                <!-- Additional links can be added here -->
+            </ul>
+        </nav>
+
+        <!-- Main content area -->
+        <div class="content">
+
+            <!-- Body content block -->
+            <div class="body">
+                {% block body %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Font Awesome Icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2poTmrWtjfVMEPVkSmXKp4YfRvH/x8WjRF7xUqzB6Y63kZpFgm81" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMzJ7pK1B1ry9bJXKGmWT8l58xT0gt7FvN6kd4Z5Jmzzc4I6LYwbG7q2v5Z" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-kwcbDq6YZR7g0czxRUFjcyfZns5qMwcoEdNCIw63k7fQrRxX7AyY25hFjv0Q26V" crossorigin="anonymous"></script>
+</body>
+</html>
